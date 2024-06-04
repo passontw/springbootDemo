@@ -7,6 +7,7 @@ import passon.com.tw.springbootdemo.model.Book;
 import passon.com.tw.springbootdemo.model.BookRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BookService {
@@ -23,5 +24,9 @@ public class BookService {
     }
     public Book save(Book book) {
         return bookRepository.save(book);
+    }
+
+    public Optional<Book> findById(long id) {
+        return bookRepository.findById(id);
     }
 }

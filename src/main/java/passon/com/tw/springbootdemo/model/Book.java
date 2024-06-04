@@ -8,7 +8,7 @@ public class Book {
     @Id
     @Column(name="id", length=50)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
     @Column(name = "name", length = 50)
     private String name;
     @Column(name = "author", length = 50)
@@ -19,7 +19,7 @@ public class Book {
     private int status;
 
     public Book() {}
-    public Book(int id, String name, String author, String description, int status) {
+    public Book(long id, String name, String author, String description, int status) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -28,10 +28,10 @@ public class Book {
         this.status = status;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
-    public void setId(int id){
+    public void setId(long id){
         this.id = id;
     }
 
