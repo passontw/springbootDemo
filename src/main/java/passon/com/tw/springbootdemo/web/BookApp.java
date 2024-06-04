@@ -33,4 +33,22 @@ public class BookApp {
 
         return bookService.save(book);
     }
+
+    @PutMapping("/books")
+    public  Book put(
+            @RequestParam long id,
+            @RequestParam String name,
+            @RequestParam String author,
+            @RequestParam String description,
+            @RequestParam int status
+    ) {
+        Book book = new Book();
+        book.setId(id);
+        book.setName(name);
+        book.setAuthor(author);
+        book.setDescription(description);
+        book.setStatus(status);
+
+        return bookService.save(book);
+    }
 }
