@@ -44,4 +44,8 @@ public class BookService {
     public List<Book> findByDescriptionEndsWith(String description) {
         return bookRepository.findByDescriptionEndsWith(description);
     }
+
+    public List<Book> findByJPQL(int len) {
+        return bookRepository.findByJPQL(len);
+    }
 }

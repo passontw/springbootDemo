@@ -67,8 +67,15 @@ public class BookApp {
         return bookService.findByDescriptionEndsWith(description);
     }
 
+    @GetMapping("/books/by/length")
+    public List<Book> findByLength(@RequestParam int len) {
+        return bookService.findByJPQL(len);
+    }
+
     @GetMapping("/books/by")
     public List<Book> findByAuthor(@RequestParam(required = false) String author, @RequestParam(required = false) int status) {
         return bookService.findByAuthorAndStatus(author, status);
     }
+
+
 }
