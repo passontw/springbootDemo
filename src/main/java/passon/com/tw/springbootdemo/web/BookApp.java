@@ -63,8 +63,8 @@ public class BookApp {
     }
 
     @GetMapping("/books/by/description")
-    public List<Book> findByDescriptionByWith(@RequestParam String description) {
-        return bookService.findByDescriptionEndWith(description);
+    public List<Book> findByDescriptionEndsWith(@RequestParam String description) {
+        return bookService.findByDescriptionEndsWith(description);
     }
 
     @GetMapping("/books/by")
