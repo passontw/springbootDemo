@@ -15,7 +15,8 @@ public class BookApp {
 
 
     @GetMapping("/books")
-    public List<Book> getAll() {
+    public List<Book> getAll(
+    ) {
         return bookService.findAll();
     }
 
@@ -50,5 +51,24 @@ public class BookApp {
         book.setStatus(status);
 
         return bookService.save(book);
+    }
+
+    @DeleteMapping("/books/{id}")
+    public void deleteOne(@PathVariable long id) {
+        bookService.deleteById(id);
+    }
+    @GetMapping("/books/by/author")
+    public List<Book> findByAuthor(@RequestParam String author) {
+        return bookService.findByAuthor(author);
+    }
+
+    @GetMapping("/books/by/description")
+    public List<Book> findByDescriptionByWith(@RequestParam String description) {
+        return bookService.findByDescriptionEndWith(description);
+    }
+
+    @GetMapping("/books/by")
+    public List<Book> findByAuthor(@RequestParam(required = false) String author, @RequestParam(required = false) int status) {
+        return bookService.findByAuthorAndStatus(author, status);
     }
 }
