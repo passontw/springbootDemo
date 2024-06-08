@@ -9,6 +9,13 @@ import passon.com.tw.springbootdemo.services.BookService;
 
 import java.util.List;
 
+class CreateBookRequest {
+    private String name;
+    private String author;
+    private String description;
+    private int status;
+
+}
 @RestController
 @RequestMapping("/api/v1")
 public class BookApp {
@@ -24,9 +31,9 @@ public class BookApp {
     }
 
     @PostMapping("/books")
-    public ResponseEntity<Book> post(@RequestBody Book book) {
-        bookService.save(book);
-        return new ResponseEntity<Book>(book, HttpStatus.CREATED);
+    public ResponseEntity<CreateBookRequest> post(@RequestBody CreateBookRequest book) {
+//        bookService.save(book);
+        return new ResponseEntity<CreateBookRequest>(book, HttpStatus.CREATED);
     }
 
     @PutMapping("/books")
