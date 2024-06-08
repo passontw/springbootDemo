@@ -1,6 +1,8 @@
 package passon.com.tw.springbootdemo.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import passon.com.tw.springbootdemo.model.Book;
 import passon.com.tw.springbootdemo.services.BookService;
@@ -15,28 +17,20 @@ public class BookApp {
 
 
     @GetMapping("/books")
-    public List<Book> getAll(
+    public ResponseEntity<List<Book>> getAll(
     ) {
-        return bookService.findAll();
+        List<Book> books = bookService.findAll();
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
     @PostMapping("/books")
-    public Book post(
-            @RequestParam String name,
-            @RequestParam String author,
-            @RequestParam String description,
-            @RequestParam int status) {
-        Book book = new Book();
-        book.setName(name);
-        book.setAuthor(author);
-        book.setDescription(description);
-        book.setStatus(status);
-
-        return bookService.save(book);
+    public ResponseEntity<Book> post(@RequestBody Book book) {
+        bookService.save(book);
+        return new ResponseEntity<Book>(book, HttpStatus.CREATED);
     }
 
     @PutMapping("/books")
-    public  Book put(
+    public  ResponseEntity<Book> put(
             @RequestParam long id,
             @RequestParam String name,
             @RequestParam String author,
@@ -50,42 +44,53 @@ public class BookApp {
         book.setDescription(description);
         book.setStatus(status);
 
-        return bookService.save(book);
+        bookService.save(book);
+        return new ResponseEntity<Book>(book, HttpStatus.OK);
     }
 
     @DeleteMapping("/books/{id}")
-    public void deleteOne(@PathVariable long id) {
+    public ResponseEntity<?> deleteOne(@PathVariable long id) {
         bookService.deleteById(id);
+        return new ResponseEntity<Object>(HttpStatus.OK);
     }
+
     @GetMapping("/books/by/author")
-    public List<Book> findByAuthor(@RequestParam String author) {
-        return bookService.findByAuthor(author);
+    public ResponseEntity<List<Book>> findByAuthor(@RequestParam String author) {
+        List<Book> books = bookService.findByAuthor(author);
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
     @GetMapping("/books/by/description")
-    public List<Book> findByDescriptionEndsWith(@RequestParam String description) {
-        return bookService.findByDescriptionEndsWith(description);
+    public ResponseEntity<List<Book>> findByDescriptionEndsWith(@RequestParam String description) {
+        List<Book> books = bookService.findByDescriptionEndsWith(description);
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
     @GetMapping("/books/by/length")
-    public List<Book> findByLength(@RequestParam int len) {
-        return bookService.findByJPQL(len);
+    public ResponseEntity<List<Book>> findByLength(@RequestParam int len) {
+        List<Book> books = bookService.findByJPQL(len);
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
     @PutMapping("/books/by/jpql")
-    public int updateStatusByJPQL(@RequestParam int status, @RequestParam long id) {
-        return bookService.updateByJPQL(status, id);
+    public ResponseEntity<?> updateStatusByJPQL(@RequestParam int status, @RequestParam long id) {
+        int result = bookService.updateByJPQL(status, id);
+        return new ResponseEntity<Object>(result, HttpStatus.OK);
     }
 
     @DeleteMapping("/books/by/jpql")
     public int deleteStatusByJPQL(@RequestParam long id) {
-        return bookService.deleteByJPQL( id);
+        return bookService.deleteByJPQL(id);
     }
 
     @GetMapping("/books/by")
-    public List<Book> findByAuthor(@RequestParam(required = false) String author, @RequestParam(required = false) int status) {
-        return bookService.findByAuthorAndStatus(author, status);
+    public ResponseEntity<List<Book>> findByAuthor(@RequestParam(required = false) String author, @RequestParam(required = false) int status) {
+        List<Book> books = bookService.findByAuthorAndStatus(author, status);
+        return new ResponseEntity<List<Book>>(books, HttpStatus.OK);
     }
 
-
+    @PostMapping("/books/delete/and/update")
+    public int deleteAndUpdate(@RequestParam long id, @RequestParam int status, @RequestParam long uid) {
+        return bookService.deleteAndUpdate(id, status, uid);
+    }
 }

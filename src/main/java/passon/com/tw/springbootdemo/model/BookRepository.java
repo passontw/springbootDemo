@@ -28,7 +28,6 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     int updateByJPQL(int status, long id);
 
     @Transactional
-    @Modifying
     @Query("delete from Book b where id = ?1")
     int deleteByJPQL(long id);
 }

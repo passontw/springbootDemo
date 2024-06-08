@@ -3,6 +3,7 @@ package passon.com.tw.springbootdemo.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import passon.com.tw.springbootdemo.model.Book;
 import passon.com.tw.springbootdemo.model.BookRepository;
 
@@ -56,5 +57,12 @@ public class BookService {
 
     public int deleteByJPQL(long id){
         return bookRepository.deleteByJPQL(id);
+    }
+
+    @Transactional
+    public int deleteAndUpdate(long id, int status, long uid) {
+        int dcount = bookRepository.deleteByJPQL(id);
+        int ucount = bookRepository.updateByJPQL(status, uid);
+        return dcount + ucount;
     }
 }
