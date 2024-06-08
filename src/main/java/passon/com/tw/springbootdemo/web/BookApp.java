@@ -77,6 +77,11 @@ public class BookApp {
         return bookService.updateByJPQL(status, id);
     }
 
+    @DeleteMapping("/books/by/jpql")
+    public int deleteStatusByJPQL(@RequestParam long id) {
+        return bookService.deleteByJPQL( id);
+    }
+
     @GetMapping("/books/by")
     public List<Book> findByAuthor(@RequestParam(required = false) String author, @RequestParam(required = false) int status) {
         return bookService.findByAuthorAndStatus(author, status);
