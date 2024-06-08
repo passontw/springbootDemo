@@ -46,6 +46,11 @@ public class BookService {
     }
 
     public List<Book> findByJPQL(int len) {
+        System.out.println("len: " + len );
         return bookRepository.findByJPQL(len);
+    }
+
+    public int updateByJPQL(int status, long id){
+        return bookRepository.updateByJPQL(status, id);
     }
 }

@@ -72,6 +72,11 @@ public class BookApp {
         return bookService.findByJPQL(len);
     }
 
+    @PutMapping("/books/by/jpql")
+    public int updateStatusByJPQL(@RequestParam int status, @RequestParam long id) {
+        return bookService.updateByJPQL(status, id);
+    }
+
     @GetMapping("/books/by")
     public List<Book> findByAuthor(@RequestParam(required = false) String author, @RequestParam(required = false) int status) {
         return bookService.findByAuthorAndStatus(author, status);
